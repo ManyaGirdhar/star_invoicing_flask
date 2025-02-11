@@ -8,7 +8,7 @@
 
 ## Homework
 
-* Implement edit and delete of customers
+<!-- * Implement edit and delete of customers -->
 * Implement edit and delete of invoices
   * how will you handle automatic delete of invoice items?
 * Clean up the JS code

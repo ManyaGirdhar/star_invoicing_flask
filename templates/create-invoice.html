@@ -6,7 +6,12 @@
 <form class="m-5" action="/invoices" method="post">
     <div class="mb-3">
         <label for="customer" class="form-label">Customer</label>
-        <input required type="number" name="customer" class="form-control" id="customer" placeholder="Customer ID">
+        <select required name="customer" class="form-control" id="customer">
+            <option value="" disabled selected>Select Customer</option>
+            {% for customer in customers %}
+                <option value="{{ customer.id }}">{{ customer.full_name }}</option>
+            {% endfor %}
+        </select>
     </div>
 
     <div class="mb-3">

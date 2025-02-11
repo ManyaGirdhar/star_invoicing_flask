@@ -1,6 +1,6 @@
 from peewee import Model, CharField, TextField, SqliteDatabase, DateField, FloatField, ForeignKeyField, AutoField, IntegerField
 
-db = SqliteDatabase("invoices.db")
+db = SqliteDatabase("invoices.db", pragmas={"foreign_keys": 1})
 
 class Customer(Model):
     full_name = CharField(200)
@@ -17,6 +17,7 @@ class Invoice(Model):
     total_amount = FloatField()
     tax_percent = FloatField()
     payable_amount = FloatField()
+    gov_arn = CharField(null=True)
     class Meta:
         database = db
 
