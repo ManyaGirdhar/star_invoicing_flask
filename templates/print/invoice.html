@@ -1,46 +1,121 @@
 <main>
-    <h1>Invoice {{ invoice.invoice_id }}</h1>
+    <div class="invoice-container">
+        <h1>Invoice #{{ invoice.invoice_id }}</h1>
+        <p class="gov-arn">ARN No: {{ invoice.gov_arn }}</p>
 
-    <h2>Customer: {{ invoice.customer.full_name }}</h2>
+        <div class="customer-details">
+            <h2>Customer: {{ invoice.customer.full_name }}</h2>
+            <h3>Address: {{ invoice.customer.address }}</h3>
+        </div>
 
-    <h3>Address: {{ invoice.customer.address }}</h3>
+        <h4 class="section-title">Items</h4>
 
-    <h4>Items</h4>
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in invoice.items %}
+                <tr>
+                    <td>{{ item.item_name }}</td>
+                    <td>{{ item.qty }}</td>
+                    <td>₹{{ item.rate }}</td>
+                    <td>₹{{ item.amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <ol>
-        {% for item in invoice.items %}
-        <li>
-            {{ item.item_name }} | {{ item.qty  }} * {{ item.rate }} = {{ item.amount }}
-        </li>
-        {% endfor %}
-    </ol>
+        <div class="summary">
+            <p><strong>Total Amount:</strong> ₹{{ invoice.total_amount }}</p>
+            <p><strong>Tax:</strong> {{ invoice.tax_percent }}%</p>
+        </div>
 
+        <hr class="divider">
 
-    
-    <p>Total Amount: {{ invoice.total_amount }}</p>
-    <p>Tax: {{ invoice.tax_percent }}%</p>
-
-    <hr>
-
-    <p class="display">Payable Amount: {{ invoice.payable_amount }}</p>
+        <p class="payable-amount">Payable Amount: ₹{{ invoice.payable_amount }}</p>
+    </div>
 </main>
-
 
 <style>
     @page {
         size: A4;
-        background-color: beige;
+        margin: 20mm;
     }
 
+    body {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        background-color: #f9f9f9;
+    }
+
+    .invoice-container {
+        padding: 20px;
+        border: 1px solid #ddd;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
 
     h1 {
-        color: #111;
+        color: #333;
+        text-align: center;
+        margin-bottom: 10px;
     }
 
-    .display {
-        font-size: 32px;
+    .gov-arn {
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .customer-details {
+        margin-bottom: 20px;
+    }
+
+    .section-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .invoice-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    .invoice-table th, .invoice-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .invoice-table th {
+        background-color: #f4f4f4;
+    }
+
+    .summary {
+        margin-top: 10px;
+        font-size: 16px;
+    }
+
+    .divider {
+        border: 1px solid #ddd;
+        margin: 20px 0;
+    }
+
+    .payable-amount {
+        font-size: 24px;
         font-weight: bold;
         color: #111;
+        text-align: center;
+        margin-top: 20px;
     }
 </style>
-
